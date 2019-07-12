@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BehaviorSubject, interval } from "rxjs";
-import { throttle } from "rxjs/operators";
+import { throttle, throttleTime } from "rxjs/operators";
 import styled from "styled-components";
 import ScoreProvider from "../provider/ScoreProvider";
 

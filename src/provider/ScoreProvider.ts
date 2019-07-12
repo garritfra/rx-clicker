@@ -6,14 +6,16 @@ export default class ScoreProvider {
   public score: BehaviorSubject<number>;
 
   static get instance(): ScoreProvider {
-    let gottenInstance = instance || new ScoreProvider();
-    return gottenInstance;
+    if (!instance) instance = new ScoreProvider();
+    return instance;
   }
 
   constructor() {
     this.score = new BehaviorSubject<number>(0);
-    setInterval(() => {
-      this.score.next(this.score.value + 1);
-    }, 1);
+  }
+
+  click() {
+    const newValue = this.score.value + 1;
+    this.score.next(newValue);
   }
 }
