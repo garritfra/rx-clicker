@@ -14,6 +14,6 @@ export default class ScoreProvider {
     this.score = new BehaviorSubject<number>(0);
     setInterval(() => {
       this.score.next(this.score.value + 1);
-    }, 500);
+    }, 1);
   }
 }

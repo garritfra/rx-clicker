@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, interval } from "rxjs";
+import { throttle } from "rxjs/operators";
 import styled from "styled-components";
 import ScoreProvider from "../provider/ScoreProvider";
 
@@ -8,12 +9,16 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Counter = styled.h1``;
+const Counter = styled.h1`
+  font-family: sans-serif;
+`;
 
 export default () => {
   const [score, setScore] = useState(ScoreProvider.instance.score.value);
   useEffect(() => {
-    ScoreProvider.instance.score.subscribe({ next: v => setScore(v) });
+    ScoreProvider.instance.score
+      .pipe(throttle(() => interval(100)))
+      .subscribe({ next: v => setScore(v) });
   }, []);
 
   return (
